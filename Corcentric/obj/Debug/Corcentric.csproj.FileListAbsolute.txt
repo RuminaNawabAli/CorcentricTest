@@ -1,0 +1,11 @@
+C:\Automation\Corcentric\Corcentric\Corcentric\bin\Debug\Corcentric.dll
+C:\Automation\Corcentric\Corcentric\Corcentric\bin\Debug\Corcentric.pdb
+C:\Automation\Corcentric\Corcentric\Corcentric\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Automation\Corcentric\Corcentric\Corcentric\bin\Debug\WebDriver.dll
+C:\Automation\Corcentric\Corcentric\Corcentric\bin\Debug\WebDriver.xml
+C:\Automation\Corcentric\Corcentric\Corcentric\obj\Debug\Corcentric.dll
+C:\Automation\Corcentric\Corcentric\Corcentric\obj\Debug\Corcentric.pdb
+C:\Automation\Corcentric\Corcentric\Corcentric\bin\Debug\nunit.framework.dll
+C:\Automation\Corcentric\Corcentric\Corcentric\bin\Debug\nunit.framework.xml
+C:\Automation\Corcentric\Corcentric\Corcentric\obj\Debug\Corcentric.csprojResolveAssemblyReference.cache
+C:\Automation\Corcentric\Corcentric\Corcentric\bin\Debug\SeleniumExtras.PageObjects.dll
