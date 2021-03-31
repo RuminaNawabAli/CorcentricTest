@@ -3,6 +3,7 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium;
 using NUnit.Framework;
 using Corcentric.PageObjects;
+using Corcentric.ValueObject;
 
 namespace Corcentric
 {
@@ -10,6 +11,7 @@ namespace Corcentric
     public class TestClass
     {
      public static IWebDriver driver;
+       
         [SetUp]
         public void Setup()
         {
@@ -25,10 +27,7 @@ namespace Corcentric
             PracticeForm.GotoUrl("https://demoqa.com/");
             PracticeForm.NavigateToForm();
             PracticeForm.ClickPracticeForm();
-            PracticeForm.SetFirstName("Rumina");
-            PracticeForm.SetLastName("Merchant");
-            PracticeForm.SetGender();
-            PracticeForm.SetNumber("012344566787542");
+            PracticeForm.FillForm("Rumina", "Merchant", "012344566787542","Female");
             PracticeForm.SubmitForm();
             PracticeForm.CompareMessage("Thanks for submitting the form");
         }
@@ -42,6 +41,7 @@ namespace Corcentric
             PracticeForm.ClickPracticeForm();
             PracticeForm.SubmitForm();
             PracticeForm.FieldValidation();
+          
         }
         [TearDown]
         public void QuitDriver()

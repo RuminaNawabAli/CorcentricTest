@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Corcentric.ValueObject;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using SeleniumExtras.PageObjects;
 using System;
@@ -12,6 +13,8 @@ namespace Corcentric.PageObjects
     class PracticeForm
     {
         IWebDriver driver;
+      
+
         public PracticeForm(IWebDriver driver)
         {
             this.driver = driver;
@@ -32,8 +35,6 @@ namespace Corcentric.PageObjects
         private IWebElement FirstName;
         [FindsBy(How = How.CssSelector, Using = "#lastName")]
         private IWebElement LastName;
-        [FindsBy(How = How.XPath, Using = "//label[contains(text(),'Female')]")]
-        private IWebElement Gender;
         [FindsBy(How = How.CssSelector, Using = "#userNumber")]
         private IWebElement Number;
         [FindsBy(How = How.CssSelector, Using = "#submit")]
@@ -49,22 +50,30 @@ namespace Corcentric.PageObjects
         {
             Practice.Click();
         }
-        public void SetGender()
+        public void FillForm(string name, string lastname, string number,string gender)
         {
-            Gender.Click();
+            Form form = new Form(name, lastname, number,gender);
+            FirstName.SendKeys(form.Fistname);
+            LastName.SendKeys(form.Lastname);
+            Number.SendKeys(form.Usernumber);
+            Gendervalue(form.Gender);
         }
-        public void SetFirstName(string name)
+
+        public void Gendervalue(string value)
         {
-            FirstName.SendKeys(name);
+            var radios = driver.FindElements(By.Name("gender"));
+            foreach(var radio in radios)
+            {
+                if (radio.GetAttribute("value") == value)
+                {
+                    var jse = (IJavaScriptExecutor)driver;
+                    jse.ExecuteScript("arguments[0].click()", radio);
+                }
+            }
+
         }
-        public void SetLastName(string name)
-        {
-            LastName.SendKeys(name);
-        }
-        public void SetNumber(string number)
-        {
-            Number.SendKeys(number);
-        }
+
+
         public void SubmitForm()
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
@@ -72,7 +81,7 @@ namespace Corcentric.PageObjects
 
             Submit.Click();
         }
-
+        
         public void CompareMessage(string expected)
         {
             String actual = Text.Text.Trim();
@@ -93,7 +102,7 @@ namespace Corcentric.PageObjects
             }            
             
         }
- 
-
+       
+       
     }
 }
