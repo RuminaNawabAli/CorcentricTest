@@ -79,7 +79,7 @@ namespace Corcentric.PageObjects
             Assert.AreEqual(expected, actual);
         }
 
-        public void FiledValidation()
+        public void FieldValidation()
         {
          var result=   driver.FindElements(By.CssSelector(".form-control:invalid"));
 

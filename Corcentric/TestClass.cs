@@ -41,7 +41,7 @@ namespace Corcentric
             PracticeForm.NavigateToForm();
             PracticeForm.ClickPracticeForm();
             PracticeForm.SubmitForm();
-            PracticeForm.FiledValidation();
+            PracticeForm.FieldValidation();
         }
         [TearDown]
         public void QuitDriver()
