@@ -1,19 +1,16 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium;
-using NUnit;
 using NUnit.Framework;
 using Corcentric.PageObjects;
-using SeleniumExtras.PageObjects;
 
 namespace Corcentric
 {
-    [TestClass]
+    [TestFixture]
     public class TestClass
     {
      public static IWebDriver driver;
-        [TestInitialize]
+        [SetUp]
         public void Setup()
         {
             string path = System.IO.Path.GetFullPath(@"..\..\WinDriver\");
@@ -21,7 +18,7 @@ namespace Corcentric
             driver.Manage().Window.Maximize();
            
         }
-        [TestMethod]
+        [Test]
         public void Case1()
         {
             var PracticeForm = new PracticeForm(driver);
@@ -36,7 +33,7 @@ namespace Corcentric
             PracticeForm.Assertion("Thanks for submitting the form");
         }
 
-        [TestMethod]
+        [Test]
         public void Case2()
         {
             var PracticeForm = new PracticeForm(driver);
@@ -46,7 +43,7 @@ namespace Corcentric
             PracticeForm.Save();
             PracticeForm.FiledValidation();
         }
-        [TestCleanup]
+        [TearDown]
         public void QuitDriver()
         {
             driver.Quit();
