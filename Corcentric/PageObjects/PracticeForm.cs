@@ -17,9 +17,9 @@ namespace Corcentric.PageObjects
             this.driver = driver;
             PageFactory.InitElements(driver, this);
         }
-        public void GotoUrl()
+        public void GotoUrl(String url)
         {
-            driver.Navigate().GoToUrl("https://demoqa.com/");
+            driver.Navigate().GoToUrl(url);
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollBy(0,document.body.scrollHeight)");
         }
@@ -40,13 +40,12 @@ namespace Corcentric.PageObjects
         private IWebElement Submit;
         [FindsBy(How = How.CssSelector, Using = "#example-modal-sizes-title-lg")]
         private IWebElement Text;
-
-
-        public void openForm()
+       
+        public void NavigateToForm()
         {
             Form.Click();
         }
-        public void openpractiseform()
+        public void ClickPracticeForm()
         {
             Practice.Click();
         }
@@ -66,7 +65,7 @@ namespace Corcentric.PageObjects
         {
             Number.SendKeys(number);
         }
-        public void Save()
+        public void SubmitForm()
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("arguments[0].scrollIntoView();", Submit);
@@ -74,7 +73,7 @@ namespace Corcentric.PageObjects
             Submit.Click();
         }
 
-        public void Assertion(string expected)
+        public void CompareMessage(string expected)
         {
             String actual = Text.Text.Trim();
             Assert.AreEqual(expected, actual);
