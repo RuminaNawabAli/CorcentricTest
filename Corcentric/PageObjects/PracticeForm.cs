@@ -1,19 +1,14 @@
 ﻿using Corcentric.ValueObject;
-using NUnit.Framework;
 using OpenQA.Selenium;
 using SeleniumExtras.PageObjects;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Corcentric.PageObjects
 {
     class PracticeForm
     {
         IWebDriver driver;
-      
+
 
         public PracticeForm(IWebDriver driver)
         {
@@ -32,16 +27,29 @@ namespace Corcentric.PageObjects
         [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Practice Form')]")]
         private IWebElement Practice;
         [FindsBy(How = How.CssSelector, Using = "#firstName")]
-        private IWebElement FirstName;
+        private IWebElement _FirstName;
         [FindsBy(How = How.CssSelector, Using = "#lastName")]
-        private IWebElement LastName;
+        private IWebElement _LastName;
         [FindsBy(How = How.CssSelector, Using = "#userNumber")]
-        private IWebElement Number;
+        private IWebElement _Number;
         [FindsBy(How = How.CssSelector, Using = "#submit")]
         private IWebElement Submit;
         [FindsBy(How = How.CssSelector, Using = "#example-modal-sizes-title-lg")]
         private IWebElement Text;
-       
+        [FindsBy(How = How.CssSelector, Using = "#gender-radio-1")]
+        private IWebElement _Male;
+        [FindsBy(How = How.CssSelector, Using = "#gender-radio-2")]
+        private IWebElement _Female;
+        [FindsBy(How = How.CssSelector, Using = "#gender-radio-3")]
+        private IWebElement _Other;
+
+        public IWebElement FirstName { get { return _FirstName; }}
+        public IWebElement LastName { get { return _LastName; }}
+        public IWebElement Number { get { return _Number; }}
+        public IWebElement Male { get { return _Male; } }
+        public IWebElement Female { get { return _Female; } }
+        public IWebElement Other { get { return _Other; } }
+
         public void NavigateToForm()
         {
             Form.Click();
@@ -50,9 +58,9 @@ namespace Corcentric.PageObjects
         {
             Practice.Click();
         }
-        public void FillForm(string name, string lastname, string number,string gender)
+        public void FillForm(string name, string lastname, string number, string gender)
         {
-            Form form = new Form(name, lastname, number,gender);
+            Form form = new Form(name, lastname, number, gender);
             FirstName.SendKeys(form.Fistname);
             LastName.SendKeys(form.Lastname);
             Number.SendKeys(form.Usernumber);
@@ -62,7 +70,7 @@ namespace Corcentric.PageObjects
         public void Gendervalue(string value)
         {
             var radios = driver.FindElements(By.Name("gender"));
-            foreach(var radio in radios)
+            foreach (var radio in radios)
             {
                 if (radio.GetAttribute("value") == value)
                 {
@@ -81,28 +89,25 @@ namespace Corcentric.PageObjects
 
             Submit.Click();
         }
-        
-        public void CompareMessage(string expected)
+
+        public string getTxt()
         {
-            String actual = Text.Text.Trim();
-            Assert.AreEqual(expected, actual);
+            return Text.Text.Trim();
+
         }
 
-        public void FieldValidation()
+        public Boolean IsRequired(IWebElement element,string attribute)
         {
-         var result=   driver.FindElements(By.CssSelector(".form-control:invalid"));
-
-            foreach (var v in result)
+            var value = element.GetAttribute(attribute);
+            if (value != null)
             {
-                if (v.GetAttribute("id") != "firstName" && v.GetAttribute("id") != "lastName" && v.GetAttribute("id") != "userNumber")
-                {
-                    Assert.Fail(v.GetAttribute("id") + "not found");
-                }
-             
-            }            
-            
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
-       
-       
+
     }
 }

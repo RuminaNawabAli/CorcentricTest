@@ -1,9 +1,7 @@
-﻿using System;
-using OpenQA.Selenium.Chrome;
+﻿using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium;
 using NUnit.Framework;
 using Corcentric.PageObjects;
-using Corcentric.ValueObject;
 
 namespace Corcentric
 {
@@ -29,7 +27,7 @@ namespace Corcentric
             PracticeForm.ClickPracticeForm();
             PracticeForm.FillForm("Rumina", "Merchant", "012344566787542","Female");
             PracticeForm.SubmitForm();
-            PracticeForm.CompareMessage("Thanks for submitting the form");
+            Assert.AreEqual("Thanks for submitting the form", PracticeForm.getTxt());
         }
 
         [Test(Description = "Verify First Name, Last Name, Gender are required fields")]
@@ -40,8 +38,13 @@ namespace Corcentric
             PracticeForm.NavigateToForm();
             PracticeForm.ClickPracticeForm();
             PracticeForm.SubmitForm();
-            PracticeForm.FieldValidation();
-          
+            Assert.True(PracticeForm.IsRequired(PracticeForm.FirstName, "required"));
+            Assert.True(PracticeForm.IsRequired(PracticeForm.LastName, "required"));
+            Assert.True(PracticeForm.IsRequired(PracticeForm.Number, "required"));
+            Assert.True(PracticeForm.IsRequired(PracticeForm.Male, "required"));
+            Assert.True(PracticeForm.IsRequired(PracticeForm.Female, "required"));
+            Assert.True(PracticeForm.IsRequired(PracticeForm.Other, "required"));
+
         }
         [TearDown]
         public void QuitDriver()
